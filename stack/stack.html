@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style type="text/css">
+			body{margin:0px; padding:0px;}
+			.box{width:30px;height:30px;font-size:14px;background:gray;border:1px solid black;color:white;margin-left:10px;display:inline-block;vertical-align:center;text-align:center; padding-top:10px;}
+		</style>
+	</head>
+	<body>
+		
+		<input type="text" name="input" id="input" placeholder="input"><br />
+		<input type="button" value="Submit" onclick="addValue()">
+		<input type="button" value="Clear" onclick="clearDisplay()">
+		<br /><br /><br />
+		<div id="container"></div>
+
+		<script type="text/javascript">
+			function Stack(){
+				var stackArr = [11,21,31,41];
+				this.add=function(val){
+					if(typeof(val) != "object"){
+						stackArr.push(val);
+					}else{
+						for(var j=0; j<val.length;j++){
+							stackArr.push(val[j]);
+						}
+					};
+					this.display();
+				};
+				this.display=function(){
+					var t=this;
+					var node=document.getElementById('container');
+					while(node.hasChildNodes()){
+						node.removeChild(node.firstChild);
+					}
+					for(var i=0; i<stackArr.length; i++){
+						var element = document.createElement("div");
+						element.className = "box";
+						element.setAttribute("indx", i);
+						element.innerHTML = stackArr[i];
+						(function(i){
+							element.onclick = function(){
+								var nd = document.getElementById('container');
+								var list = nd.getElementsByTagName('div');
+								var indx = Number(list[i].getAttribute('indx'));
+								stackArr.splice(indx,1);
+								t.display();
+							}
+						})(i);						
+						document.getElementById('container').appendChild(element);
+					}
+				};
+				this.clearDisplay = function(){
+					var node=document.getElementById('container');
+					while(node.hasChildNodes()){
+						node.removeChild(node.firstChild);
+					}
+					stackArr.length = 0;
+				}
+			};
+
+			var stack = new Stack();
+			stack.display();
+			function addValue(){
+				var val = document.getElementById('input').value;				
+				if(val != undefined && val != ""){
+					if(val.indexOf(',') > -1){
+						var temparr = val.split(",");
+						if(temparr[temparr.length-1] !="" && temparr[temparr.length-1] != undefined){
+							stack.add(temparr);
+						}else{
+							alert("Last value is not defined propertly. Please check.");
+						}
+					}else{
+						stack.add(val);
+					}
+				}
+				document.getElementById('input').value = "";
+			};
+			function clearDisplay(){
+				stack.clearDisplay();
+			}
+		</script>
+	</body>
+</html>
