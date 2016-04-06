@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style type="text/css">
+			body{margin:0px; padding:0px;}
+			.box{width:30px;height:30px;font-size:14px;background:gray;border:1px solid black;color:white;margin-left:10px;display:inline-block;vertical-align:center;text-align:center; padding-top:10px;}
+		</style>		
+	</head>
+	<body>
+		<input type="text" name="input" id="input" placeholder="input"><br />
+		<input type="button" value="Add" onclick="addItem()">
+		<input type="button" value="Delete" onclick="removeItem()">
+		<input type="button" value="Clear" onclick="clearDisplay()">
+
+		<input type="button" value="FirstItem" onclick="showFirstItem()">
+		<input type="button" value="Last Item" onclick="showLastItem()">
+		<br /><br /><br />
+		<div id="container">
+			<p>one</p><br />
+			<p>two</p><br />
+			<p>three</p><br />
+			<p>four</p><br />
+			<p>five</p><br />
+		</div>
+
+		<script type="text/javascript">
+			function Queue(){
+				var queueArr = [1,2,3,4,5,6,7,8,9,0];
+				this.enqueue = function(val){
+					if(typeof(val) != "object"){
+						queueArr.push(val);
+					}else{
+						for(var j=0; j<val.length;j++){
+							queueArr.push(val[j]);
+						}
+					};
+					this.display();
+				};
+				this.dequeue = function(){
+					if(queueArr.length > 0){
+						queueArr.shift(queueArr.length-1);
+						this.display();
+					}
+				};
+				this.firstItem = function(){
+					if(queueArr[0] != undefined){
+						alert("first Item is: "+queueArr[0]);
+					}					
+				};
+				this.lastItem = function(){
+					if(queueArr[queueArr.length-1]){
+						alert("last Item is: "+queueArr[queueArr.length-1]);
+					}
+				};
+				this.empty = function(){
+					queueArr.length = 0;
+					this.display();
+				};
+				this.display = function(){
+					var t = this;
+					var container = document.getElementById('container');
+					while(container.hasChildNodes()){
+						container.removeChild(container.firstChild);
+					}
+					for(var i=0; i<queueArr.length; i++){
+						(function(i){
+							var elem = document.createElement("div");
+							elem.className = "box";
+							elem.setAttribute('indx', i);
+							elem.innerHTML = queueArr[i];
+							elem.onclick = function(){
+								var indx = elem.getAttribute('indx');
+								queueArr.splice(indx,1);
+								t.display();
+							}
+							container.appendChild(elem);
+						})(i);						
+					}
+				};
+			};
+
+			var queue = new Queue();
+			queue.display();
+			function addItem(){
+				var val = document.getElementById("input").value;
+				if(val != undefined && val != ""){
+					if(val.indexOf(',') > -1){
+						var temparr = val.split(",");
+						if(temparr[temparr.length-1] !="" && temparr[temparr.length-1] != undefined){
+							queue.enqueue(temparr);
+						}else{
+							alert("Last value is not defined propertly. Please check.");
+						}
+					}else{
+						queue.enqueue(val);
+					}
+				}
+				document.getElementById('input').value = "";
+			}
+			function removeItem(){
+				queue.dequeue();
+			}
+			function clearDisplay(){
+				queue.empty();
+			}
+			function showFirstItem(){
+				queue.firstItem();
+			}
+			function showLastItem(){
+				queue.lastItem();
+			}
+		</script>
+
+	</body>
+</html>
