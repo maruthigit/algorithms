@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	</head>
+	<body>
+		<script type='text/javascript'>
+			function findPrimeFactors (num) {
+				var factors = [];
+				var divisor = 2;
+				while(num > 2) {
+					if(num%divisor === 0){
+						factors.push(divisor);
+						num = num/divisor;
+					}else{
+						divisor ++;
+					}
+					console.log(num, divisor);
+				}
+				console.log(factors);
+			}
+			//findPrimeFactors(1153243);
+			findPrimeFactors(100);
+		</script>
+	</body>
+</html>

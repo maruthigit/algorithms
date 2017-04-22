@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	</head>
+	<body>
+		<script type="text/javascript">
+			//swap like arrange bigger to left side
+			//substract left with right number
+			//if left === right, then that number is the answer
+			function findGreatestCommonDivisor (a, b) {
+				if(b > a){
+					findGreatestCommonDivisor (b, a)
+				}else if (a === b){
+					console.log("Greatest Common Divisor is ", a);
+				} else {
+					findGreatestCommonDivisor(a-b, b);
+				}
+			};
+			findGreatestCommonDivisor(69, 169);
+		</script>
+	</body>
+</html>

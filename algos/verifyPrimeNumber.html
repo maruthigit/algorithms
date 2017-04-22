@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	</head>
+	
+	<body>
+		<script type="text/javascript">
+			//verify prime number - 
+			function isPrime(num){
+				var i = 2;
+				while( i< num) {
+					if (num%i === 0) {
+						console.log(i , num,' is not a prime number');
+						break;
+					}
+					i++;
+					if(num === i){
+						console.log(i, num, 'is a prime number');
+					}
+				}
+			}
+			isPrime(119);
+			//Aleternative Method --- USE SQUAREROOT 
+			//With square root way - It will loop square root of the number times
+			//eg. 25
+			//square root of 25 is 5. So, it just need 5 loops instead of 25 loops.
+			function isPrimeWithSqrt (num) {
+				var counter = 2;
+				var sqrtNum = Math.floor(Math.sqrt(num));
+				var flag = true;
+				while(counter < sqrtNum) {
+					console.log(counter , sqrtNum);
+					if (num%counter === 0) {
+						flag = false;
+						break;
+					}
+					counter++;			
+				}
+				if(flag){
+					console.log(counter, num, 'is a prime number');
+				} else {
+					console.log(counter , num,' is not a prime number');
+				}
+			}
+			isPrimeWithSqrt(10333);
+		</script>
+	</body>
+</html>
